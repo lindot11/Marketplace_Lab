@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <context-param>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
+    <session-config>
+        <session-timeout>10</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/view/public/search.xhtml</welcome-file>
+    </welcome-file-list>
+    <data-source>
+        <name>java:global/marketplace</name>
+        <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>3306</port-number>
+        <database-name>marketplace</database-name>
+        <user>marketplace</user>
+        <password>marketplace</password>
+        <property>
+            <name>sslMode</name>
+            <value>Disabled</value>
+        </property>
+        <property>
+            <name>allowPublicKeyRetrieval</name>
+            <value>true</value>
+        </property>
+        <property>
+            <name>serverTimeZone</name>
+            <value>UTC</value>
+        </property>
+    </data-source>
+    <!--<error-page>
+        <location>/faces/view/public/error.xhtml</location>
+    </error-page>-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPS everywhere</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Sales Personnel</description>
+        <role-name>sales</role-name>
+    </security-role>
+    <security-role>
+        <description>Marketing Personnel</description>
+        <role-name>marketing</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin Area</web-resource-name>
+            <url-pattern>/faces/view/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>sales</role-name>
+            <role-name>marketing</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+</web-app>

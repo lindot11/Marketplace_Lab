@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Marketplace</title>
+        <h:outputStylesheet library="css" name="marketplace.css" />
+    </h:head>
+    
+    <h:body>
+        <div id="header">
+            <h1>Edit Product</h1>
+            <h:messages globalOnly="true" layout="table" infoClass="redItalicText" />
+        </div>
+
+        <div id="productData">
+            <p>Please modify the following information to edit a product:</p>
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Code:" />
+                    <h:inputText id="code"
+                                 value="#{editProductBacking.product.code}" />
+                    <h:message for="code" errorClass="redItalicText" />
+                    <h:outputLabel value="Description:" />
+                    <h:inputText id="description"
+                                 value="#{editProductBacking.product.description}" />
+                    <h:message for="description" errorClass="redItalicText" />
+                    <h:outputLabel value="Price:" />
+                    <h:inputText id="price"
+                                 value="#{editProductBacking.product.price}" />
+                    <h:message for="price" errorClass="redItalicText" />
+                    <h:outputText value="" />
+                    <h:commandButton value="Update product"
+                                     action="#{editProductBacking.updateProduct}" />
+                    <h:outputText value="" />
+                </h:panelGrid>
+            </h:form>
+        </div>
+
+        <div id="navigation">
+            <h:panelGrid columns="1">
+                <h:button value="Return to admin area" outcome="/view/admin/admin" />
+            </h:panelGrid>
+        </div>
+    </h:body>
+</html>
