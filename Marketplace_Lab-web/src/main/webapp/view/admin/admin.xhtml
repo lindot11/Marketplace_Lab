@@ -90,6 +90,12 @@
                                          action="#{adminProductBacking.removeProduct(product)}" />
                     </h:form>
                 </h:column>
+                <h:column>
+                    <h:form rendered="#{request.getRemoteUser() == product.username}">
+                        <h:commandButton value="Edit product"
+                                         action="#{editProductBacking.editProduct(product)}" />
+                    </h:form>
+                </h:column>
             </h:dataTable>
         </h:panelGroup>
         

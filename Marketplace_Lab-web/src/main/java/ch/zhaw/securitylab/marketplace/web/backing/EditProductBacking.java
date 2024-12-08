@@ -24,9 +24,9 @@ public class EditProductBacking implements Serializable {
     public Product getProduct() {
         return product;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         initConversation();
     }
 
@@ -35,7 +35,7 @@ public class EditProductBacking implements Serializable {
         return "/view/admin/product/editproduct";
     }
 
-    /*public String updateProduct() {
+    public String updateProduct() {
         if (adminProductService.updateProduct(product)) {
             Message.setMessage("The product could successfully be updated");
             endConversation();
@@ -44,12 +44,12 @@ public class EditProductBacking implements Serializable {
             Message.setMessage("The product could not be updated as a product with the same code already exists");
             return "/view/admin/product/editproduct";
         }
-    }*/
+    }
 
     public void initConversation() {
         conversation.begin();
     }
-    
+
     public void endConversation() {
         conversation.end();
     }

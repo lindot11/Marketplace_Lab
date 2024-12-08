@@ -34,21 +34,19 @@ public class AdminProductService {
      * @param updatedProduct The product to update
      * @return true if the product was updated, false otherwise
      */
-    /*
-     * public boolean updateProduct(Product updatedProduct) {
-     * Product productWithSameCode =
-     * productFacade.findByCode(updatedProduct.getCode());
-     * if (productWithSameCode == null || updatedProduct.getProductId() ==
-     * productWithSameCode.getProductId()) {
-     * Product product = productFacade.findById(updatedProduct.getProductId());
-     * product.setCode(updatedProduct.getCode());
-     * product.setDescription(updatedProduct.getDescription());
-     * product.setPrice(updatedProduct.getPrice());
-     * productFacade.edit(product);
-     * return true;
-     * } else {
-     * return false;
-     * }
-     * }
-     */
+
+    public boolean updateProduct(Product updatedProduct) {
+        Product productWithSameCode = productFacade.findByCode(updatedProduct.getCode());
+        if (productWithSameCode == null || updatedProduct.getProductId() == productWithSameCode.getProductId()) {
+            Product product = productFacade.findById(updatedProduct.getProductId());
+            product.setCode(updatedProduct.getCode());
+            product.setDescription(updatedProduct.getDescription());
+            product.setPrice(updatedProduct.getPrice());
+            productFacade.edit(product);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
