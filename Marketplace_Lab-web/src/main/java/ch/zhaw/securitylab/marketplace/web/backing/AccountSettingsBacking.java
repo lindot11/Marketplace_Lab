@@ -16,8 +16,17 @@ public class AccountSettingsBacking {
 
     @Inject
     private AccountSettingsService accountSettingsService;
-    @Size(min=4, message = "Please insert a new password with at least 4 characters")
+    private String currentPassword;
+    @Size(min = 4, message = "Please insert a new password with at least 4 characters")
     private String newPassword;
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
 
     public String getNewPassword() {
         return newPassword;
@@ -30,7 +39,7 @@ public class AccountSettingsBacking {
     public String changePassword() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        if (accountSettingsService.changePassword(request.getRemoteUser(), newPassword)) {
+        if (accountSettingsService.changePassword(request.getRemoteUser(), currentPassword, newPassword)) {
             Message.setMessage("Your password was successfully changed");
             return "/view/admin/admin";
         } else {

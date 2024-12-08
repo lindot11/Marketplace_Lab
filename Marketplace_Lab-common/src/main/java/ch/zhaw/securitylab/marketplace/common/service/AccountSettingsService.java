@@ -19,18 +19,19 @@ public class AccountSettingsService {
     /**
      * Changes the password of a user.
      * 
-     * @param username The username for which to change the password
-     * @param newPassword The new password
+     * @param username        The username for which to change the password
+     * @param currentPassword The current password
+     * @param newPassword     The new password
      * @return whether password change was successful (true) or not (false)
      */
-    public boolean changePassword(String username, String newPassword) {
-        
+    public boolean changePassword(String username, String currentPassword, String newPassword) {
+
         // Get the UserInfo entity of user username from the database
         UserInfo userInfo = userFacade.findByUsername(username);
         if (userInfo == null) {
             return false;
         }
-        
+
         // Initialize pbkdf2PasswordHash with the desired settings
         Map<String, String> parameters = new HashMap<>();
         parameters.put("Pbkdf2PasswordHash.Iterations", "100000");
@@ -38,9 +39,15 @@ public class AccountSettingsService {
         parameters.put("Pbkdf2PasswordHash.SaltSizeBytes", "64");
         parameters.put("Pbkdf2PasswordHash.KeySizeBytes", "32");
         pbkdf2PasswordHash.initialize(parameters);
-        
+
         // Implement
-        
+        if (!pbkdf2PasswordHash.verify(currentPassword.toCharArray(), userInfo.getPdbkf2Hash())) {
+            return false;
+        }
+
+        String newHash = pbkdf2PasswordHash.generate(newPassword.toCharArray());
+        userInfo.setPdbkf2Hash(newHash);
+
         // Update the modified UserInfo entity in the database
         userFacade.edit(userInfo);
         return true;

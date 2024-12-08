@@ -19,6 +19,9 @@
             <p>To change your password, provide a new password:</p>
             <h:form>
                 <h:panelGrid columns="3">
+                    <h:outputLabel value="Current password:" />
+                    <h:inputSecret id="currentPassword" value="#{accountSettingsBacking.currentPassword}" />
+                    <h:message for="currentPassword" errorClass="redItalicText" />
                     <h:outputLabel value="New password:" />
                     <h:inputSecret id="newPassword" value="#{accountSettingsBacking.newPassword}" />
                     <h:message for="newPassword" errorClass="redItalicText" />

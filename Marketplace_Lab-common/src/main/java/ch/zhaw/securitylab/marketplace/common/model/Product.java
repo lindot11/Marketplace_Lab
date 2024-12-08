@@ -24,8 +24,8 @@ public class Product implements Serializable {
     private String code;
     @Pattern(regexp = "^[a-zA-Z0-9 ,'-]{10,100}$", message = "Please insert a valid description (10-100 characters: letters / digits / space / - / , / ')")
     private String description;
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "Please insert a valid price (between 0 and 999'999.99, with at most two decimal places)")
+    @PositiveOrZero(message = "Please insert a valid price (between 0 and 999'999.99, with at most two decimal places)")
     @Digits(integer = 6, fraction = 2, message = "Please insert a valid price (between 0 and 999'999.99, with at most two decimal places)")
     private BigDecimal price;
     @JsonbTransient
