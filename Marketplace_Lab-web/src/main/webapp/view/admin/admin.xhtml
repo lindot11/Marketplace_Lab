@@ -55,6 +55,43 @@
         </h:panelGroup>
         
         <!-- Insert view for productmanager -->
+        <h:panelGroup rendered="#{request.isUserInRole('productmanager')}">
+            <p>
+                <h:outputText value="No products available."
+                              rendered="#{adminProductBacking.count == 0}" />
+                <h:outputText value="Products:"
+                              rendered="#{adminProductBacking.count > 0}" />
+            </p>
+
+            <h:dataTable value="#{adminProductBacking.products}" var="product"
+                            rendered="#{adminProductBacking.count > 0}" styleClass="list"
+                            rowClasses="odd,even" columnClasses="text,text,price,text">
+                <h:column>
+                    <f:facet name="header">Code</f:facet>
+                        #{product.code}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                        #{product.description}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Price (CHF)</f:facet>
+                    <h:outputText value="#{product.price}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Username</f:facet>
+                        #{product.username}
+                </h:column>
+                <h:column>
+                    <h:form rendered="#{request.getRemoteUser() == product.username}">
+                        <h:commandButton value="Remove product"
+                                         action="#{adminProductBacking.removeProduct(product)}" />
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
         
         <h:panelGroup rendered="#{!request.isUserInRole('manager') and 
                                   !request.isUserInRole('sales') and 
