@@ -4,20 +4,29 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "Product")
 @NamedQueries({
-    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description LIKE :description"),
-    @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
-    @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.productID = :productID")})
+        @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description LIKE :description"),
+        @NamedQuery(name = "Product.findByCode", query = "SELECT p FROM Product p WHERE p.code = :code"),
+        @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.productID = :productID") })
 public class Product implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     private int productID;
+    @Pattern(regexp = "^[a-zA-Z0-9]{4}$", message = "Please insert a valid code (4 letters / digits)")
     private String code;
+    @Pattern(regexp = "^[a-zA-Z0-9 ,'-]{10,100}$", message = "Please insert a valid description (10-100 characters: letters / digits / space / - / , / ')")
     private String description;
+    @NotNull
+    @PositiveOrZero
+    @Digits(integer = 6, fraction = 2, message = "Please insert a valid price (between 0 and 999'999.99, with at most two decimal places)")
     private BigDecimal price;
     @JsonbTransient
     private String username;
@@ -26,7 +35,7 @@ public class Product implements Serializable {
     public int getProductId() {
         return productID;
     }
-    
+
     public String getCode() {
         return code;
     }

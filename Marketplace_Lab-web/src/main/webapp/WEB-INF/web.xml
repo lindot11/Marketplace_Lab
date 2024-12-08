@@ -91,4 +91,16 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Add Product</web-resource-name>
+            <url-pattern>/faces/view/admin/product/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>productmanager</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    <security-constraint>
+
 </web-app>
