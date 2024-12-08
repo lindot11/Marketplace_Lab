@@ -13,29 +13,31 @@
             <h1>Add Product</h1>
             <h:messages globalOnly="true" layout="table" infoClass="redItalicText" />
         </div>
-        
-        <!-- Implement -->
-        <p>
-            <h:message for="product" errorClass="redItalicText" />
-            <h:outputText value="Please provide the following information to add a product:" />
-        </p>
 
-        <h:form>
-            <h:panelGrid columns="3">
-                <h:outputLabel value="Code:" />
-                <h:inputText id="code" value="#{addProductBacking.product.code}" />
-                <h:message for="code" errorClass="redItalicText" />
-                <h:outputLabel value="Description:" />
-                <h:inputText id="description" value="#{addProductBacking.product.description}" />
-                <h:message for="description" errorClass="redItalicText" />
-                <h:outputLabel value="Price:" />
-                <h:inputText id="price" value="#{addProductBacking.product.price}" />
-                <h:message for="price" errorClass="redItalicText" />
-                <h:outputText value="" />
-                <h:commandButton value="Add product" action="#{addProductBacking.addProduct}" />
-                <h:outputText value="" />
-            </h:panelGrid>
-        </h:form>
+        <!-- Implement -->
+        <div id="productData">
+            <p>
+                <h:message for="product" errorClass="redItalicText" />
+                <h:outputText value="Please provide the following information to add a product:" />
+            </p>
+    
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Code:" />
+                    <h:inputText id="code" value="#{addProductBacking.product.code}" />
+                    <h:message for="code" errorClass="redItalicText" />
+                    <h:outputLabel value="Description:" />
+                    <h:inputText id="description" value="#{addProductBacking.product.description}" />
+                    <h:message for="description" errorClass="redItalicText" />
+                    <h:outputLabel value="Price:" />
+                    <h:inputText id="price" value="#{addProductBacking.product.price}" />
+                    <h:message for="price" errorClass="redItalicText" />
+                    <h:outputText value="" />
+                    <h:commandButton value="Add product" action="#{addProductBacking.addProduct}" />
+                    <h:outputText value="" />
+                </h:panelGrid>
+            </h:form>    
+        </div>
 
         <div id="navigation">
             <h:panelGrid columns="1">
